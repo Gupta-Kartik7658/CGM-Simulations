@@ -1,4 +1,4 @@
-# Software Requirements Specification (SRS)
+npm run preview# Software Requirements Specification (SRS)
 
 ## Project Title
 
