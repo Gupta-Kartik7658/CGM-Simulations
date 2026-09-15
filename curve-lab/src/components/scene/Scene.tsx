@@ -6,6 +6,7 @@ import { useFrenetFrame } from '../../hooks/useFrenetFrame';
 import { CurveRenderer } from './CurveRenderer';
 import { SelectedPoint } from './SelectedPoint';
 import { FrenetVectors } from './FrenetVectors';
+import { CharacteristicPlanes } from './CharacteristicPlanes';
 
 /**
  * Minimal 3D scene proving the architecture: a coordinate grid, the
@@ -36,6 +37,12 @@ export function Scene() {
         showTangent={visibility.showTangent}
         showNormal={visibility.showNormal}
         showBinormal={visibility.showBinormal}
+      />
+      <CharacteristicPlanes
+        frame={frame}
+        showOsculating={visibility.showOsculatingPlane}
+        showNormal={visibility.showNormalPlane}
+        showRectifying={visibility.showRectifyingPlane}
       />
 
       <OrbitControls makeDefault />

@@ -7,6 +7,12 @@ const VECTOR_TOGGLES: { key: keyof VisibilitySettings; label: string }[] = [
   { key: 'showBinormal', label: 'B' },
 ];
 
+const PLANE_TOGGLES: { key: keyof VisibilitySettings; label: string }[] = [
+  { key: 'showOsculatingPlane', label: 'Osculating' },
+  { key: 'showNormalPlane', label: 'Normal' },
+  { key: 'showRectifyingPlane', label: 'Rectifying' },
+];
+
 /**
  * Bare-bones controls for Phase 1: pick a curve, drag t, toggle which
  * Frenet vectors are shown. No formulas live here — it only reads/writes
@@ -60,6 +66,20 @@ export function ControlPanel() {
           </label>
         ))}
       </div>
+
+      <fieldset className="plane-toggles">
+        <legend>Planes</legend>
+        {PLANE_TOGGLES.map(({ key, label }) => (
+          <label key={key}>
+            <input
+              type="checkbox"
+              checked={visibility[key]}
+              onChange={() => toggleVisibility(key)}
+            />
+            {label}
+          </label>
+        ))}
+      </fieldset>
     </div>
   );
 }

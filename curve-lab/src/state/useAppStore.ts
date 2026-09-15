@@ -5,6 +5,9 @@ export interface VisibilitySettings {
   showTangent: boolean;
   showNormal: boolean;
   showBinormal: boolean;
+  showOsculatingPlane: boolean;
+  showNormalPlane: boolean;
+  showRectifyingPlane: boolean;
 }
 
 interface AppState {
@@ -29,7 +32,14 @@ const initialT = (initialCurve.domain[0] + initialCurve.domain[1]) / 2;
 export const useAppStore = create<AppState>((set) => ({
   selectedCurveId: initialCurve.id,
   t: initialT,
-  visibility: { showTangent: true, showNormal: true, showBinormal: true },
+  visibility: {
+    showTangent: true,
+    showNormal: true,
+    showBinormal: true,
+    showOsculatingPlane: false,
+    showNormalPlane: false,
+    showRectifyingPlane: false,
+  },
 
   setSelectedCurveId: (id) =>
     set(() => {

@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type { FrenetFrame } from '../../math/frenetFrame';
+import { HoverLabel } from './HoverLabel';
 
 interface FrenetVectorsProps {
   frame: FrenetFrame;
@@ -26,6 +27,43 @@ function useArrow(
     if (!visible || !valid || !direction) return null;
     return new THREE.ArrowHelper(direction, origin, length, color);
   }, [visible, valid, direction, origin, length, color]);
+}
+
+function VectorArrow({
+  arrow,
+  origin,
+  direction,
+  label,
+}: {
+  arrow: THREE.ArrowHelper | null;
+  origin: THREE.Vector3;
+  direction: THREE.Vector3 | null;
+  label: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+  if (!arrow || !direction) return null;
+
+  return (
+    <group>
+      <primitive object={arrow} />
+      <mesh
+        position={origin.clone().add(direction.clone().multiplyScalar(0.3))}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          setHovered(true);
+        }}
+        onPointerOut={() => setHovered(false)}
+      >
+        <sphereGeometry args={[0.13, 12, 12]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
+      {hovered && (
+        <group position={origin.clone().add(direction.clone().multiplyScalar(0.6))}>
+          <HoverLabel>{label}</HoverLabel>
+        </group>
+      )}
+    </group>
+  );
 }
 
 /**
@@ -72,9 +110,24 @@ export function FrenetVectors({
 
   return (
     <>
-      {tangentArrow && <primitive object={tangentArrow} />}
-      {normalArrow && <primitive object={normalArrow} />}
-      {binormalArrow && <primitive object={binormalArrow} />}
+      <VectorArrow
+        arrow={tangentArrow}
+        origin={origin}
+        direction={frame.tangent}
+        label="Unit Tangent T"
+      />
+      <VectorArrow
+        arrow={normalArrow}
+        origin={origin}
+        direction={frame.normal}
+        label="Principal Normal N"
+      />
+      <VectorArrow
+        arrow={binormalArrow}
+        origin={origin}
+        direction={frame.binormal}
+        label="Binormal B"
+      />
     </>
   );
 }
