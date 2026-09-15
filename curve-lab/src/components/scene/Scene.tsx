@@ -1,25 +1,25 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { getCurveById } from '../../curves';
 import { useAppStore } from '../../state/useAppStore';
-import { useFrenetFrame } from '../../hooks/useFrenetFrame';
 import { CurveRenderer } from './CurveRenderer';
 import { SelectedPoint } from './SelectedPoint';
 import { FrenetVectors } from './FrenetVectors';
 import { CharacteristicPlanes } from './CharacteristicPlanes';
+import type { FrenetFrame } from '../../math/frenetFrame';
+import type { ParametricCurve3D } from '../../curves';
 
 /**
  * Minimal 3D scene proving the architecture: a coordinate grid, the
  * selected curve, the selected point, and its Frenet frame — all driven
  * by shared Zustand state and the math engine via useFrenetFrame.
  */
-export function Scene() {
-  const selectedCurveId = useAppStore((s) => s.selectedCurveId);
-  const t = useAppStore((s) => s.t);
-  const visibility = useAppStore((s) => s.visibility);
+interface SceneProps {
+  curve: ParametricCurve3D;
+  frame: FrenetFrame;
+}
 
-  const curve = getCurveById(selectedCurveId);
-  const frame = useFrenetFrame(curve, t);
+export function Scene({ curve, frame }: SceneProps) {
+  const visibility = useAppStore((s) => s.visibility);
 
   return (
     <Canvas camera={{ position: [4, 3, 5], fov: 50 }}>

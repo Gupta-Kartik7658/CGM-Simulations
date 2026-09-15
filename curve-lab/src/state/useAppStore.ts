@@ -14,9 +14,11 @@ interface AppState {
   selectedCurveId: string;
   t: number;
   visibility: VisibilitySettings;
+  verboseMode: boolean;
   setSelectedCurveId: (id: string) => void;
   setT: (t: number) => void;
   toggleVisibility: (key: keyof VisibilitySettings) => void;
+  setVerboseMode: (enabled: boolean) => void;
 }
 
 const initialCurve = curveRegistry[0];
@@ -40,6 +42,7 @@ export const useAppStore = create<AppState>((set) => ({
     showNormalPlane: false,
     showRectifyingPlane: false,
   },
+  verboseMode: false,
 
   setSelectedCurveId: (id) =>
     set(() => {
@@ -54,4 +57,6 @@ export const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       visibility: { ...state.visibility, [key]: !state.visibility[key] },
     })),
+
+  setVerboseMode: (enabled) => set({ verboseMode: enabled }),
 }));

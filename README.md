@@ -52,9 +52,9 @@ The application lets users select supported curves, move through a parameter dom
 
 Requirements: Node.js and npm.
 
-From this directory:
-
 ```bash
+git clone https://github.com/Gupta-Kartik7658/CGM-Simulations.git
+cd CGM-Simulations/curve-lab
 npm install
 npm run dev
 ```
@@ -74,20 +74,21 @@ npm run lint      # Run ESLint
 ## Project Structure
 
 ```text
-src/
-├── components/       React controls, educational UI, and scene components
-├── curves/           Parametric curve implementations and registry
-├── hooks/            React adapters for mathematical calculations
-├── math/             Frenet frame, vector, plane, tolerance, and validation logic
-├── state/            Zustand application state
-└── tests/            Curve and mathematical unit tests
+curve-lab
+├── src/
+    ├── components/       React controls, educational UI, and scene components
+    ├── curves/           Parametric curve implementations and registry
+    ├── hooks/            React adapters for mathematical calculations
+    ├── math/             Frenet frame, vector, plane, tolerance, and validation logic
+    ├── state/            Zustand application state
+    └── tests/            Curve and mathematical unit tests
 ```
 
 The mathematics engine is independent of React and Three.js. Renderers and UI components consume the computed `FrenetFrame`; they should not reimplement differential-geometry calculations.
 
 ## SRS Reference
 
-The complete product requirements are documented in the [Software Requirements Specification](../Software%20Requirements%20Specification%20%E2%80%94%203D%20Curve%20%26%20Frenet%20Frame%20Visualizer.md) at the repository root.
+The complete product requirements are documented in the [Software Requirements Specification](Software%20Requirements%20Specification%20%E2%80%94%203D%20Curve%20%26%20Frenet%20Frame%20Visualizer.md) at the repository root.
 
 Important SRS sections include:
 
@@ -112,4 +113,4 @@ Important SRS sections include:
 
 ## License
 
-See the repository [LICENSE](../LICENSE) file.
+See the repository [LICENSE](LICENSE) file.

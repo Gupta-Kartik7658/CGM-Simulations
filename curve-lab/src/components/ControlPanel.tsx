@@ -22,9 +22,11 @@ export function ControlPanel() {
   const selectedCurveId = useAppStore((s) => s.selectedCurveId);
   const t = useAppStore((s) => s.t);
   const visibility = useAppStore((s) => s.visibility);
+  const verboseMode = useAppStore((s) => s.verboseMode);
   const setSelectedCurveId = useAppStore((s) => s.setSelectedCurveId);
   const setT = useAppStore((s) => s.setT);
   const toggleVisibility = useAppStore((s) => s.toggleVisibility);
+  const setVerboseMode = useAppStore((s) => s.setVerboseMode);
 
   const curve = getCurveById(selectedCurveId);
   const [start, end] = curve.domain;
@@ -80,6 +82,15 @@ export function ControlPanel() {
           </label>
         ))}
       </fieldset>
+
+      <label className="verbose-toggle">
+        <input
+          type="checkbox"
+          checked={verboseMode}
+          onChange={(event) => setVerboseMode(event.target.checked)}
+        />
+        Verbose mode
+      </label>
     </div>
   );
 }
