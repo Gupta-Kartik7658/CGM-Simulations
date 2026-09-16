@@ -18,7 +18,6 @@ You can also try [the experimental native React Compiler support in plugin-react
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
 # 3D Curve & Frenet Frame Visualizer
 
 An interactive educational laboratory for exploring parametric 3D curves and their differential-geometric properties.
